@@ -1,6 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import Pagination from "../Pagination";
 import { IPaginationProps } from "../../interfases/pagination";
+import renderWithContexts from "@/tests/helpers/RenderWithContexts";
 
 describe("Componente Pagination", () => {
   const mockOnPageChange = jest.fn();
@@ -16,26 +17,26 @@ describe("Componente Pagination", () => {
   });
 
   test("Muestra la información correcta de la página", () => {
-    render(<Pagination {...defaultProps} />);
+    renderWithContexts(<Pagination {...defaultProps} />);
 
-    const pageInfo = screen.getByText(/página 1 de 5/i);
+    const pageInfo = screen.getByText(/page 1 of 5/i);
     expect(pageInfo).toBeInTheDocument();
   });
 
   test("Muestra los botones con el estado inicial correcto", () => {
-    render(<Pagination {...defaultProps} />);
+    renderWithContexts(<Pagination {...defaultProps} />);
 
-    const previousButton = screen.getByRole("button", { name: /anterior/i });
-    const nextButton = screen.getByRole("button", { name: /siguiente/i });
+    const previousButton = screen.getByRole("button", { name: /previous/i });
+    const nextButton = screen.getByRole("button", { name: /next/i });
 
     expect(previousButton).toBeDisabled();
     expect(nextButton).not.toBeDisabled();
   });
 
   test("Llama a onPageChange con el valor correcto cuando se hace click en 'Siguiente'", () => {
-    render(<Pagination {...defaultProps} />);
+    renderWithContexts(<Pagination {...defaultProps} />);
 
-    const nextButton = screen.getByRole("button", { name: /siguiente/i });
+    const nextButton = screen.getByRole("button", { name: /next/i });
     fireEvent.click(nextButton);
 
     expect(mockOnPageChange).toHaveBeenCalledTimes(1);
@@ -43,9 +44,9 @@ describe("Componente Pagination", () => {
   });
 
   test("Llama a onPageChange con el valor correcto cuando se hace click en 'Anterior'", () => {
-    render(<Pagination {...defaultProps} currentPage={3} />);
+    renderWithContexts(<Pagination {...defaultProps} currentPage={3} />);
 
-    const previousButton = screen.getByRole("button", { name: /anterior/i });
+    const previousButton = screen.getByRole("button", { name: /previous/i });
     fireEvent.click(previousButton);
 
     expect(mockOnPageChange).toHaveBeenCalledTimes(1);
@@ -53,24 +54,24 @@ describe("Componente Pagination", () => {
   });
 
   test("Desactiva el botón 'Siguiente' cuando está en la última página", () => {
-    render(<Pagination {...defaultProps} currentPage={5} />);
+    renderWithContexts(<Pagination {...defaultProps} currentPage={5} />);
 
-    const nextButton = screen.getByRole("button", { name: /siguiente/i });
+    const nextButton = screen.getByRole("button", { name: /next/i });
     expect(nextButton).toBeDisabled();
   });
 
   test("Desactiva el botón 'Anterior' cuando está en la primera página", () => {
-    render(<Pagination {...defaultProps} currentPage={1} />);
+    renderWithContexts(<Pagination {...defaultProps} currentPage={1} />);
 
-    const previousButton = screen.getByRole("button", { name: /anterior/i });
+    const previousButton = screen.getByRole("button", { name: /previous/i });
     expect(previousButton).toBeDisabled();
   });
 
   test("Muestra ambos botones habilitados para las páginas centrales", () => {
-    render(<Pagination {...defaultProps} currentPage={3} />);
+    renderWithContexts(<Pagination {...defaultProps} currentPage={3} />);
 
-    const previousButton = screen.getByRole("button", { name: /anterior/i });
-    const nextButton = screen.getByRole("button", { name: /siguiente/i });
+    const previousButton = screen.getByRole("button", { name: /previous/i });
+    const nextButton = screen.getByRole("button", { name: /next/i });
 
     expect(previousButton).not.toBeDisabled();
     expect(nextButton).not.toBeDisabled();

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IFilterState } from '../interfases/filters';
+import { IFilterState } from '@/interfases/filters';
 
 const BASE_URL = 'https://rickandmortyapi.com/api';
 

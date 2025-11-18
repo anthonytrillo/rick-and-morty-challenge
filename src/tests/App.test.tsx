@@ -1,14 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import App from '../App';
+import renderWithContexts from './helpers/RenderWithContexts';
 
 describe('Componente App', () => {
   it('Muestra la página NotFound para una ruta no definida', () => {
-    render(
-      <MemoryRouter initialEntries={['/undefined-route']}>
-        <App />
-      </MemoryRouter>
-    );
+    renderWithContexts(<App />, { memoryRouterProps: { initialEntries: ["/undefined-route"] } });
 
     expect(screen.getByText(/404 Not Found/i)).toBeInTheDocument();
   });

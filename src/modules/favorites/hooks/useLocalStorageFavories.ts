@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ICharacter } from "../../../interfases/character";
+import { ICharacter } from "@/interfases/character";
 
 const LOCAL_STORAGE_KEY = "favorites";
 

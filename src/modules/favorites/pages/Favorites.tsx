@@ -1,27 +1,29 @@
 import { Link } from "react-router-dom";
-import { useFavorites } from "../hooks/useFavorites";
-import { useToast } from "../../../hooks/useToast";
-import { ICharacter } from "../../../interfases/character";
+import { useFavorites } from "@/modules/favorites/hooks/useFavorites";
+import { useToast } from "@/hooks/useToast";
+import { useLanguage } from "@/hooks/useLanguage";
+import { ICharacter } from "@/interfases/character";
 import styles from "./Favorites.module.css";
 
 const Favorites = () => {
   const { state, dispatch } = useFavorites();
   const { notifyInfo } = useToast();
+  const { t } = useLanguage();
 
   const removeIcon = '\u2716';
 
   const removeFromFavorites = (character: ICharacter) => {
     dispatch({ type: "REMOVE_FAVORITE", payload: character });
-    notifyInfo("Personaje quitado de favoritos.");
+    notifyInfo(t("removeFavorites"));
   };
 
   if (state.favorites.length === 0) {
-    return <p>No tenes personajes favoritos. Agrega algunos para poder verlos acá.</p>;
+    return <p>{t("favoriteErrorMessage")}</p>;
   }
 
   return (
     <section className={styles.favoritesContainer}>
-      <h2>Mis personajes favoritos</h2>
+      <h2>{t("favoriteCharactersTitle")}</h2>
       <div className={styles.favoritesGrid}>
         {state.favorites.map((character) => (
           <div key={character.id} className={styles.favoriteItem}>

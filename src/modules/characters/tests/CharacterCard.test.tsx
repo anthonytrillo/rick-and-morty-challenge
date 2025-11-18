@@ -1,26 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import CharacterCard from "../components/CharacterCard";
-import { ICharacter } from "../../../interfases/character";
-import { FavoritesProvider } from "../../favorites/context/FavoritesContext";
-import { MemoryRouter } from "react-router-dom";
-
-const mockCharacter: ICharacter = {
-  id: 10,
-  name: "Alan Rails",
-  status: "Dead",
-  species: "Human",
-  image: "https://rickandmortyapi.com/api/character/avatar/10.jpeg",
-};
+import renderWithContexts from "@/tests/helpers/RenderWithContexts";
+import { mockCharacter } from "@/tests/mocks/mocks";
 
 describe("Componente CharacterCard", () => {
   test("Muestra la card de cada personaje correctamente", () => {
-    render(
-      <FavoritesProvider>
-        <MemoryRouter>
-          <CharacterCard character={mockCharacter} />
-        </MemoryRouter>
-      </FavoritesProvider>
-    );
+    renderWithContexts(<CharacterCard character={mockCharacter} />);
 
     expect(screen.getByText(/Alan Rails/i)).toBeInTheDocument();
     expect(screen.getByText(/Dead/i)).toBeInTheDocument();

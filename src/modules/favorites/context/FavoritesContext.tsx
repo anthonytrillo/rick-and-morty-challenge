@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
-import { IFavoritesAction, IFavoritesState, IFavoritesProviderProps } from "../../../interfases/favorite";
+import { IFavoritesAction, IFavoritesState, IFavoritesProviderProps } from "@/interfases/favorite";
 
 const LOCAL_STORAGE_KEY = "favorites";
 

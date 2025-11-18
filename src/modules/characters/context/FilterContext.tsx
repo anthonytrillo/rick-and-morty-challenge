@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { IFilterContextProps, IFilterState } from "../../../interfases/filters";
+import { IFilterContextProps, IFilterState } from "@/interfases/filters";
 
 export const FilterContext = createContext<IFilterContextProps | undefined>(undefined);
 

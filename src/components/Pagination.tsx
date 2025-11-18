@@ -1,7 +1,10 @@
 import styles from "./Pagination.module.css";
-import { IPaginationProps } from "../interfases/pagination";
+import { IPaginationProps } from "@/interfases/pagination";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }: IPaginationProps) => {
+  const { t } = useLanguage();
+
   const handlePrevious = () => {
     if (currentPage > 1) onPageChange(currentPage - 1);
   };
@@ -17,17 +20,17 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: IPaginationProps)
         onClick={handlePrevious}
         disabled={currentPage === 1}
       >
-        Anterior
+        {t("previous")}
       </button>
       <span className={styles.pageInfo}>
-        Página {currentPage} de {totalPages}
+      {t("page")} {currentPage} {t("of")} {totalPages}
       </span>
       <button
         className={styles.button}
         onClick={handleNext}
         disabled={currentPage === totalPages}
       >
-        Siguiente
+        {t("next")}
       </button>
     </div>
   );

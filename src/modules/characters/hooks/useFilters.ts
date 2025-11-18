@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { FilterContext } from "../context/FilterContext";
-import { IFilterContextProps } from "../../../interfases/filters";
+import { FilterContext } from "@/modules/characters/context/FilterContext";
+import { IFilterContextProps } from "@/interfases/filters";
 
 export const useFilters = (): IFilterContextProps => {
   const context = useContext(FilterContext);

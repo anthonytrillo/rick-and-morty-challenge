@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
-import { useCharacters } from "../hooks/useCharacters";
-import { useFilters } from "../hooks/useFilters";
+import { useCharacters } from "@/modules/characters/hooks/useCharacters";
+import { useFilters } from "@/modules/characters/hooks/useFilters";
+import { useLanguage } from "@/hooks/useLanguage";
 import styles from "./Characters.module.css";
-import CharacterCard from "../components/CharacterCard";
-import Pagination from "../../../components/Pagination";
+import CharacterCard from "@/modules/characters/components/CharacterCard";
+import Pagination from "@/components/Pagination";
 
 const Characters = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { filters } = useFilters();
   const { characters, loading, error, totalPages } = useCharacters(currentPage, filters);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setCurrentPage(1);
   }, [filters]);
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return <p>{t("loading")}</p>;
   if (error) return <p>{error}</p>;
 
   if (!loading && characters.length === 0) {
-    return <p>No se encontraron personajes con los filtros seleccionados.</p>;
+    return <p>{t("filterErrorMessage")}</p>;
   };
 
   return (

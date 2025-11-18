@@ -1,10 +1,12 @@
-import { useCharacterDetails } from "../hooks/useCharacterDetails";
+import { useCharacterDetails } from "@/modules/characters/hooks/useCharacterDetails";
+import { useLanguage } from "@/hooks/useLanguage";
 import styles from "./CharacterDetails.module.css";
 
 const CharacterDetails = () => {
   const { character, loading, error } = useCharacterDetails();
+  const { t } = useLanguage();
 
-  if (loading) return <p>Cargando detalles del personaje...</p>;
+  if (loading) return <p>{t("loading")}</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -15,21 +17,21 @@ const CharacterDetails = () => {
       </article>
       <article className={styles.charactersCard}>
         <h3>
-          Episodios: <span>{character?.episode.length}</span>
+        {t("episode")}: <span>{character?.episode.length}</span>
         </h3>
         <h3>
-          Estado: <span>{character?.status}</span>
+          {t("status")}: <span>{character?.status}</span>
         </h3>
         <h3>
-          Especie: <span>{character?.species}</span>
+        {t("species")}: <span>{character?.species}</span>
         </h3>
         <h3>
-          Género: <span>{character?.gender}</span>
+        {t("gender")}: <span>{character?.gender}</span>
         </h3>
         <h3>
-          Origen: <span>{character?.origin.name}</span>
+        {t("origin")}: <span>{character?.origin.name}</span>
         </h3>
-        <h3>Última ubicación: {character?.location.name}</h3>
+        <h3>{t("location")}: {character?.location.name}</h3>
       </article>
     </div>
   );
